@@ -1,62 +1,49 @@
-var AppViewModel = function() {
-  // Define self as AppViewModel
-  var self = this;
+var AppViewModel = {};
 
-  self.places = ko.observableArray('');
+var view = AppViewModel;
 
-  // Tell the status of the menu
-  // Start with menu closed
-  self.isMenuVisible = ko.observable(false);
-  self.menuIcon = ko.observable('>');
+// Create an observable array of all markers
+view.markers = ko.observableArray();
+  
+// Tell the status of the menu
+// Start with menu closed
+view.isMenuVisible = ko.observable(false);
+view.menuIcon = ko.observable('>');
 
-  // Toggle isMenuVisible value and button icon
-  // when menu button is clicked
-  self.toggleMenu = function() {
-    self.isMenuVisible(!self.isMenuVisible());
-    if (self.isMenuVisible()) {
-      self.menuIcon('<');
-    } else {
-      self.menuIcon('>');
-    }
-  };
-
-  // Bind input search value
-  self.searchInput = ko.observable("");
-
-  // Bind click value
-  self.placeClick = function() {
-    var selectedPlace = this;
-    allMarkers.forEach(function(marker) {
-      if (marker.title === selectedPlace.name) {
-        animateMarker(marker);
-        openInfowindow(marker);
-        self.toggleMenu();
-      }
-    });
-  };
-
-  // When search input or category selector changes,
-  // filter the array of places
-  var filterPlaces = ko.computed(function() {
-    // Filter places' array if condition is true
-    var filter = ko.utils.arrayFilter(places, function(place) {
-      // Compare everything in lower case
-      var normalizeInput = place.name.toLowerCase().indexOf(self.searchInput().toLowerCase());
-      return normalizeInput >= 0;
-    });
-    // When the places are filtered, clear old markers
-    // and show new ones
-    if (map) {
-      clearMarkers();
-      filter.forEach(function(place) {
-        addMarker(place);
-      }, self); 
-    }
-
-    self.places(filter);
-  });
-
-  self.places(places);
+// Toggle isMenuVisible value and button icon
+// when menu button is clicked
+view.toggleMenu = function() {
+  this.isMenuVisible(!this.isMenuVisible());
+  this.menuIcon(this.isMenuVisible() ? '<' : '>');
 };
 
-ko.applyBindings(new AppViewModel());
+// Bind input search value
+view.searchInput = ko.observable("");
+
+// Bind click value
+view.placeClick = function() {
+  animateMarker(this);
+  openInfowindow(this);
+  view.toggleMenu();
+};
+
+// When search input or category selector changes,
+// filter the array of places
+view.filterPlaces = ko.computed(function() {
+  // Restart the view markers
+  view.markers(allMarkers);
+  // Filter markers' array if condition is true
+  view.markers(ko.utils.arrayFilter(view.markers(), function(marker) {
+    // Compare everything in lower case
+    var normalizeInput = marker.title.toLowerCase().indexOf(view.searchInput().toLowerCase());
+    return normalizeInput >= 0;
+  }));
+  if (map) {
+    clearMarkers();
+    view.markers().forEach(function(marker) {
+      showMarker(marker);
+    }); 
+  }
+});
+
+ko.applyBindings(AppViewModel);

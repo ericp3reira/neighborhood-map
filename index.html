@@ -28,23 +28,21 @@
         <em>Powered by</em>
         <p><a href="http://maps.google.com">Google Maps</a> and <a href="http://foursquare.com">Foursquare</a></p>
         <div class="search-filter">
-          <label for="">
+          <label for="searchInput">
             <p>Filter here:</p>
           </label>
           <input type="text" name="searchInput" data-bind="value: searchInput, valueUpdate: 'keyup'">
         </div>
         <div class="places-list">
-          <div data-bind="foreach: places">
+          <div data-bind="foreach: markers">
             <div class="places-item" data-bind="click: $parent.placeClick">
-              <p class="places-name" data-bind="text: name"></p>
+              <p class="places-name" data-bind="text: title"></p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_v08CEAxulWLORAG3IzjKICln6fg5tVA&libraries=places&callback=initMap" async defer></script>    
     <!-- Knockout -->
     <script src="js/vendor/knockout-3.4.2.js"></script>
     <!-- Model -->
@@ -53,6 +51,8 @@
     <script src="js/maps.js"></script>
     <!-- Custom Javascript -->
     <script src="js/main.js"></script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_v08CEAxulWLORAG3IzjKICln6fg5tVA&libraries=places&callback=initMap" async defer></script>  
   </body>
 </html>
 <link href="https://fonts.googleapis.com/css?family=Asap+Condensed:400,600|Open+Sans" rel="stylesheet">

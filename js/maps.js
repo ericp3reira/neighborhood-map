@@ -10,29 +10,25 @@ var initMap = function() {
     zoom: 14,
     center: {lat: -27.593965848993328, lng: -48.5513180662964}
   });
-
+  
   // Put markers on every place
   places.forEach(function(place) {
-    addMarker(place);
+    var marker = new google.maps.Marker({
+      position: place.latlng,
+      map: map,
+      title: place.name
+    });
+  
+    marker.addListener('click', function() {
+      openInfowindow(this);
+      animateMarker(this);
+    });
+    
+    AppViewModel.markers.push(marker);
+    allMarkers.push(marker);
   });
 
   infowindow = new google.maps.InfoWindow();
-};
-
-// Add a marker to a place
-var addMarker = function(place) {
-  var marker = new google.maps.Marker({
-    position: place.latlng,
-    map: map,
-    title: place.name
-  });
-
-  marker.addListener('click', function() {
-    openInfowindow(this);
-    animateMarker(this);
-  });
-
-  allMarkers.push(marker);
 };
 
 // Animates marker (isolated from ViewModel)
@@ -40,13 +36,16 @@ var animateMarker = function(marker) {
   marker.setAnimation(google.maps.Animation.DROP);
 };
 
-// Clear all markers and markers array
+// Show marker
+var showMarker = function(marker) {
+  marker.setVisible(true);
+}
+
+// Clear all markers
 var clearMarkers = function() {
   allMarkers.forEach(function(marker) {
-    marker.setMap(null);
+    marker.setVisible(false);
   });
-
-  allMarkers = [];
 };
 
 // Open an infowindow on desired marker

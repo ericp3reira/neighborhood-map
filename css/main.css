@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.page-wrapper,
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Wrapper has z-index 1 to be on front of the menu */
+.page-wrapper {
+  overflow: hidden;
+  z-index: 1;
+}
+.page-wrapper-menu-visible {
+  left: 85%;
+}
+
+/* Menu and children */
+.menu {
+  max-width: 350px;
+  width: 85%;
+  background-color: black;
+  color: white;
+  overflow: auto;
+}
+.menu-wrapper {
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.menu-title {
+  font-family: 'Asap Condensed', sans-serif;
+}
+.search-filter {
+  width: 100%;
+}
+.places-list {
+  margin: 10px;
+  width: 100%;
+}
+.places-item {
+  margin-bottom: 5px;
+}
+.places-item:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.29);
+}
+.places-name {
+  margin: 0;
+  padding: 10px;
+}
+
+/* Header and children */
+.header {
+  position: absolute;
+  z-index: 1;
+}
+.menu-btn {
+  height: 48px;
+  width: 48px;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: red;
+  background: rgba(128, 128, 128, 0.3);
+  border: none;
+}
+
+/* Main and children */
+#main-map {
+  height: 100%;
+}
+
+/* Infowindow */
+.infowindow-content {
+  text-align: center;
+}
+.infowindow-title {
+  font-family: 'Asap Condensed', sans-serif;  
+}
+.infowindow-body {
+  font-size: 1.1em;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Media query for menu right size */
+@media (min-width: 398px) {
+  .page-wrapper-menu-visible {
+    left: 350px;
+  }
+}

@@ -6,6 +6,7 @@
     <meta name="description" content="Udacity's Project Neighborhood Map">
     <meta name="author" content="Eric Pereira">
     <title>Eric's Neighborhood Map</title>
+    <link href="https://fonts.googleapis.com/css?family=Asap+Condensed:400,600|Open+Sans" rel="stylesheet">    
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
@@ -28,9 +29,7 @@
         <em>Powered by</em>
         <p><a href="http://maps.google.com">Google Maps</a> and <a href="http://foursquare.com">Foursquare</a></p>
         <div class="search-filter">
-          <label for="searchInput">
-            <p>Filter here:</p>
-          </label>
+          <p>Filter here:</p>
           <input type="text" name="searchInput" data-bind="value: searchInput, valueUpdate: 'keyup'">
         </div>
         <div class="places-list">
@@ -43,6 +42,13 @@
       </div>
     </div>
 
+    <script>
+      // Map callback if Maps API is not working
+      var mapsError = function() {
+        alert("We could not load Google Maps. Please try again later.");
+      };
+    </script>
+
     <!-- Knockout -->
     <script src="js/vendor/knockout-3.4.2.js"></script>
     <!-- Model -->
@@ -52,7 +58,6 @@
     <!-- Custom Javascript -->
     <script src="js/main.js"></script>
     <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_v08CEAxulWLORAG3IzjKICln6fg5tVA&libraries=places&callback=initMap" async defer></script>  
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_v08CEAxulWLORAG3IzjKICln6fg5tVA&libraries=places&callback=initMap" async defer onerror="mapsError()"></script>  
   </body>
 </html>
-<link href="https://fonts.googleapis.com/css?family=Asap+Condensed:400,600|Open+Sans" rel="stylesheet">
